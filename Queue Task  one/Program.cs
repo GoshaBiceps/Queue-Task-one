@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,37 +11,43 @@ namespace Queue_Task__one
     {
         static void Main(string[] args)
         {
+            Queue<int> costsPurchases = CreateQueue();
             int account = 0;
-            int[] tempArray = NumberGenerator();
-            Queue<int> costsPurchases = new Queue<int>(tempArray);
+            int clientNumber = 1; 
 
-            while(costsPurchases.Count > 0)
+
+            while (costsPurchases.Count > 0)
             {
-                Console.WriteLine($"На счёте: {account}, Нажмите любую клавишу, чтобы обслужить клиента\n");
+                int money = costsPurchases.Dequeue();
+                account += money;
+
+                Console.WriteLine($"{clientNumber++} клиент сделал покупки на сумму {money} рублей.");
+                Console.WriteLine($"В кассе - {account} рублей.");
                 Console.ReadKey();
                 Console.Clear();
 
-                account += costsPurchases.Dequeue();
-                Console.WriteLine("\nКлиент обслужен! Деньги на поступили на счёт");
             }
 
         }
 
-        static int[] NumberGenerator()
+        static Queue<int> CreateQueue()
         {
-            Random ramdom = new Random();
+            Queue<int> clients = new Queue<int>();
+            Random random = new Random();
+            int maxValue = 1000;
 
-            int[] array = new int[ramdom.Next(Console.WindowWidth)];
+            Console.WriteLine("Введите количество клиентов в очереди: ");
+            string userInput = Console.ReadLine();
 
-            int numberMaximum = 3500;
-            int numberMinimum = 1000;
-
-            for (int i = 0; i < array.Length ; i++)
+            if (int.TryParse(userInput, out int number))
             {
-                array[i] = ramdom.Next(numberMinimum, numberMaximum);
+                for (int i = 0; i < number; i++)
+                {
+                    clients.Enqueue(random.Next(maxValue));
+                }
             }
 
-            return array;
+            return clients;
         }
     }
 }
