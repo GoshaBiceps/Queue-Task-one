@@ -14,8 +14,7 @@ namespace Queue_Task__one
             Queue<int> costsPurchases = CreateQueue();
             int account = 0;
             int clientNumber = 1; 
-
-
+        
             while (costsPurchases.Count > 0)
             {
                 int money = costsPurchases.Dequeue();
@@ -29,7 +28,7 @@ namespace Queue_Task__one
             }
 
         }
-
+      
         static Queue<int> CreateQueue()
         {
             Queue<int> clients = new Queue<int>();
