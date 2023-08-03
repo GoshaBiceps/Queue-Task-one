@@ -13,22 +13,27 @@ namespace Queue_Task__one
         {
             Queue<int> costsPurchases = CreateQueue();
             int account = 0;
-            int clientNumber = 1; 
-        
+            int clientNumber = 1;
+            int money;
+          
             while (costsPurchases.Count > 0)
             {
-                int money = costsPurchases.Dequeue();
-                account += money;
-
+                
+                account = ServeCustomers(costsPurchases, account, out money);
                 Console.WriteLine($"{clientNumber++} клиент сделал покупки на сумму {money} рублей.");
                 Console.WriteLine($"В кассе - {account} рублей.");
                 Console.ReadKey();
                 Console.Clear();
-
             }
-
         }
-      
+        static int ServeCustomers(Queue<int> costsPurchases, int account, out int money)
+        {
+            money = costsPurchases.Dequeue();
+            account += money;
+
+            return account;
+        }
+
         static Queue<int> CreateQueue()
         {
             Queue<int> clients = new Queue<int>();
