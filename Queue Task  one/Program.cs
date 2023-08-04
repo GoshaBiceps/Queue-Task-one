@@ -17,8 +17,7 @@ namespace Queue_Task__one
             int money;
           
             while (costsPurchases.Count > 0)
-            {
-                
+            { 
                 account = ServeCustomers(costsPurchases, account, out money);
                 Console.WriteLine($"{clientNumber++} клиент сделал покупки на сумму {money} рублей.");
                 Console.WriteLine($"В кассе - {account} рублей.");
